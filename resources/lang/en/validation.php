@@ -128,6 +128,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'title' => [
+            'required' => 'Pavadinimas yra privalomas.',
+        ]
     ],
 
     /*
