@@ -1,31 +1,65 @@
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+@extends('layouts.master')
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+@section('content')
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-
-
-<table class="table table-bordered">
-
-    <thead>
-    <tr><th>Title</th></tr>
-    </thead>
-
-    <tbody>
-
-    @foreach($categories as $category)
-
+<div class="flex-center position-ref">
+    <table border="solid">
+        <thead>
         <tr>
-            <td>{{$category->title}}</td>
+            <th>Pavadinimas</th><th>Keisti</th><th>Trinti</th>
         </tr>
+        </thead>
 
-    @endforeach
+        <tbody>
+        @foreach($categories as $category)
+            <tr>
+                <td>
+
+                    <form action="{{ route('category.items', ['id' => $category->id]) }}" method="GET">
+                        {{csrf_field()}}
+                        <input type="submit" id="itemt" value="{{$category->title}}">
+                    </form>
+                </td>
+                <td>
+                    <form action="{{ route('categories.edit', ['id' => $category->id]) }}" method="GET">
+                        {{csrf_field()}}
+                        <input type="submit" value="Edit">
+                    </form>
+                </td>
+                <td>
+                    <form action="{{ route('categories.destroy', ['id' => $category->id]) }}" method="POST">
+                        @method('DELETE')
+                        {{csrf_field()}}
+                        <input type="submit" onclick="return confirm('Ar tikrai norite ištrinti šią kategorija su visais jos daiktais?');" value="Delete">
+                    </form>
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
 
 
-    </tbody>
+</div>
+<br>
+<div class="flex-center">
+    {{$categories->links()}}
 
-</table>
+</div>
+
+<div class="flex-center">
+   <div class="pagina"> Viso Įrašų: {{$categories->total()}} </div>
+</div>
+
+<div class="flex-center">
+
+    <div class="pagina">  Rodomi nuo {{$categories->firstItem()}} iki {{$categories->lastItem()}} </div>
+
+</div>
+
+<div class="flex-center">
+
+    <a href="{{ route('categories.create') }}" class="btn btn-success">Add category</a>
+
+</div>
+
+    @endsection
