@@ -78,8 +78,18 @@
         @endif
     </div>
 
+            <div class="content">
+                <div class="title m-b-md">
+                    Evaldas Mikalauskas
+                </div>
+
+                <div class="links">
+                    <a href="https://github.com/lowevaldas">GitHub</a>
+                </div>
+            </div>
         </div>
     </div>
+
 </div>
 </body>
 </html>
